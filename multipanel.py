@@ -43,11 +43,11 @@ class MultiPanel:
         # initialize a gridspec object
         self.gs = gridspec.GridSpec(
                 nrows=self.rows
-                ncols=self.cols
-                width_ratios=panel_widths, 
-                height_ratios=panel_heights,
-                wspace=wspace,
-                hspace=hspace
+                ,ncols=self.cols
+                ,width_ratios=panel_widths 
+                ,height_ratios=panel_heights
+                ,wspace=wspace
+                ,hspace=hspace
                 )
 
         self.filename = filename
