@@ -38,7 +38,7 @@ class MultiPanel:
         self.fig = plt.figure(figsize=(width, height))
 
         self.rows = len(panel_heights)
-        self.cols = len(panel_rows)
+        self.cols = len(panel_widths)
 
         # initialize a gridspec object
         self.gs = gridspec.GridSpec(
