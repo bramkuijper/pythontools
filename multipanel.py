@@ -8,6 +8,7 @@
 
 import sys, string, re, subprocess
 import os.path
+import time
 import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
@@ -160,6 +161,10 @@ class MultiPanel:
             return
 
         plt.savefig(self.filename,bbox_inches=bbox_inches)
+
+        time.sleep(3)
+
+        plt.close('all')
 
 
 
