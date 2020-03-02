@@ -33,6 +33,7 @@ class MultiPanel:
             ,height=5
             ,wspace=0.2
             ,hspace=0.2
+            ,pad_inches=0.5
             ):
 
         # initialize the fig
@@ -145,24 +146,32 @@ class MultiPanel:
 
         self.block_counter += 1
 
-    def close(self,tight=False):
+    def close(self
+            ,extra_artists=None
+            ,tight=False):
 
         bbox_inches=None
 
-        if tight is not False:
+        if tight != False:
             bbox_inches="tight"
         
         if self.filetype == "svg":
             filename_pdf = os.path.splitext(self.filename)[0] + ".pdf"
-            plt.savefig(filename_pdf,bbox_inches=bbox_inches)
+
+            plt.savefig(filename_pdf
+                    ,bbox_inches=bbox_inches
+                    ,pad_inches=self.pad_inches
+                    ,bbox_extra_artists=extra_artists)
 
             filename_svg = os.path.splitext(self.filename)[0] + ".svg"
             subprocess.call(["pdf2svg",filename_pdf, filename_svg])
-            return
 
-        plt.savefig(self.filename,bbox_inches=bbox_inches)
+        else:
 
-        time.sleep(3)
+            plt.savefig(self.filename
+                    ,bbox_inches=bbox_inches
+                    ,pad_inches=self.pad_inches
+                    ,bbox_extra_artists=extra_artists)
 
         plt.close('all')
 
