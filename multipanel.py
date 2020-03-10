@@ -63,6 +63,7 @@ class MultiPanel:
         else:
             self.filetype = re.sub(r"^\.","",file_plus_extension[1])
 
+        self.pad_inches = pad_inches
 
         # counter remembering how many blocks 
         # were already printed
