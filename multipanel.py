@@ -106,11 +106,13 @@ class MultiPanel:
         if xlim is not None:
             ax.set_xlim(xlim)
 
+        if type(xticks) == type(True):
+            ax.xaxis.set_major_locator(MultipleLocator(x_ticks_major_multiple))
+            ax.xaxis.set_minor_locator(AutoMinorLocator(x_ticks_minor))
 
-        ax.xaxis.set_major_locator(MultipleLocator(x_ticks_major_multiple))
-        ax.yaxis.set_major_locator(MultipleLocator(y_ticks_major_multiple))
-        ax.xaxis.set_minor_locator(AutoMinorLocator(x_ticks_minor))
-        ax.yaxis.set_minor_locator(AutoMinorLocator(y_ticks_minor))
+        if type(yticks) == type(True):
+            ax.yaxis.set_major_locator(MultipleLocator(y_ticks_major_multiple))
+            ax.yaxis.set_minor_locator(AutoMinorLocator(y_ticks_minor))
 
         ax.spines['right'].set_visible(False)
         ax.spines['top'].set_visible(False)
