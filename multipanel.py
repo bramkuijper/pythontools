@@ -100,8 +100,9 @@ class MultiPanel:
             ,y_ticks_major_multiple=0.2
             ):
 
-        # do the other axis stuff
-        ax.set_ylim(ylim)
+        if ylim is not None:
+            # do the other axis stuff
+            ax.set_ylim(ylim)
 
         if xlim is not None:
             ax.set_xlim(xlim)
