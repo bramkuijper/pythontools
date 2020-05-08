@@ -162,7 +162,7 @@ class MultiPanel:
             filename_pdf = os.path.splitext(self.filename)[0] + ".pdf"
 
             plt.savefig(filename_pdf
-                    ,bbox_inches=bbox_inches
+#                    ,bbox_inches=bbox_inches
                     ,pad_inches=self.pad_inches
                     ,bbox_extra_artists=extra_artists)
 
