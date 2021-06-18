@@ -16,7 +16,7 @@ from mpl_toolkits.mplot3d import axes3d
 from matplotlib import rcParams
 import matplotlib.patches as mpatches
 import matplotlib.gridspec as gridspec
-from matplotlib.ticker import AutoMinorLocator, MultipleLocator
+from matplotlib.ticker import AutoMinorLocator, MultipleLocator, AutoLocator
 from matplotlib import cm
 
 
@@ -89,15 +89,16 @@ class MultiPanel:
             ,yticks=False
             ,title=""
             ,xlim=None
-            ,ylim=[0.0,1.0]
+            ,ylim=None
             ,loc_title=False
             ,loc_title_pos=[0.05,1.05]
+            ,loc_title_pad=6.0
             ,x_axis_diff=0.15
             ,legend=False
-            ,x_ticks_minor=5
-            ,y_ticks_minor=5
-            ,x_ticks_major_multiple=0.2
-            ,y_ticks_major_multiple=0.2
+            ,x_ticks_minor=None
+            ,y_ticks_minor=None
+            ,x_ticks_major_multiple=None
+            ,y_ticks_major_multiple=None
             ):
 
         if ylim is not None:
@@ -107,20 +108,47 @@ class MultiPanel:
         if xlim is not None:
             ax.set_xlim(xlim)
 
-        if type(xticks) == type(True):
-            ax.xaxis.set_major_locator(MultipleLocator(x_ticks_major_multiple))
-            ax.xaxis.set_minor_locator(AutoMinorLocator(x_ticks_minor))
+        # set xticks
+        if type(xticks) == type(True) and xticks:
 
-        if type(yticks) == type(True):
-            ax.yaxis.set_major_locator(MultipleLocator(y_ticks_major_multiple))
-            ax.yaxis.set_minor_locator(AutoMinorLocator(y_ticks_minor))
+            if x_ticks_major_multiple == None:
+                ax.xaxis.set_major_locator(AutoLocator())
+            else:
+                ax.xaxis.set_major_locator(MultipleLocator(x_ticks_major_multiple))
+
+        # set minor xticks
+        if x_ticks_minor == "auto":
+            ax.xaxis.set_minor_locator(
+                    AutoMinorLocator())
+        elif x_ticks_minor != None:
+            ax.xaxis.set_minor_locator(
+                    AutoMinorLocator(x_ticks_minor))
+
+
+        # set yticks
+        if type(yticks) == type(True) and yticks:
+
+            if y_ticks_major_multiple == None:
+                ax.yaxis.set_major_locator(AutoLocator())
+            else:
+                ax.yaxis.set_major_locator(MultipleLocator(y_ticks_major_multiple))
+
+        # set minor yticks
+
+        # if yticks were none
+        if y_ticks_minor == "auto":
+            ax.yaxis.set_minor_locator(
+                    AutoMinorLocator())
+        elif y_ticks_minor != None:
+            ax.yaxis.set_minor_locator(
+                    AutoMinorLocator(y_ticks_minor))
 
         ax.spines['right'].set_visible(False)
         ax.spines['top'].set_visible(False)
+
         ax.yaxis.set_ticks_position("left")
         ax.xaxis.set_ticks_position("bottom")
         
-
         if type(ylabel) == type("sample_string"):
             ax.set_ylabel(ylabel=ylabel)
 
@@ -143,7 +171,8 @@ class MultiPanel:
             ax.set_title(
                     label=string.ascii_uppercase[self.block_counter]
                     ,loc="left"
-                    ,position=loc_title_pos)
+                    ,position=loc_title_pos
+                    ,pad=loc_title_pad)
 
         if legend:
             ax.legend()
